@@ -9,5 +9,6 @@ const pool = mysql.createPool({
     port: process.env.DB_PORT || 3306,
     connectTimeout: 20000
 });
+console.log("HOST:", process.env.DB_HOST);
 
 module.exports = pool.promise();
