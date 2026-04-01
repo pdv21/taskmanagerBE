@@ -4,17 +4,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
-
 const sendResetEmail = async (to, resetLink) => {
     try {
         console.log("📨 Sending mail to:", to);
@@ -31,10 +20,10 @@ const sendResetEmail = async (to, resetLink) => {
             `
         });
 
-        console.log("✅ Message sent:", info.messageId);
-        console.log("📬 Response:", info.response);
-        console.log("📦 Accepted:", info.accepted);
-        console.log("❌ Rejected:", info.rejected);
+        console.log("✅ Message sent:", response.messageId);
+        console.log("📬 Response:", response.response);
+        console.log("📦 Accepted:", response.accepted);
+        console.log("❌ Rejected:", response.rejected);
 
     } catch (err) {
         console.error("❌ Send mail error FULL:", err);
