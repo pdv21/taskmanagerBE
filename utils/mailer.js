@@ -6,42 +6,21 @@ const sendResetEmail = async (to, resetLink) => {
     try {
         console.log("📨 Sending mail to:", to);
         console.log("🔗 Reset link:", resetLink);
-        const html = `
-        <div style="font-family: Arial, sans-serif; background-color: #f4f6f8; padding: 20px;">
-            <div style="max-width: 500px; margin: auto; background: #ffffff; border-radius: 10px; padding: 30px;">
-                
-                <h2 style="text-align: center;">🔐 Reset Your Password</h2>
 
-                <p>
-                    You requested to reset your password.
-                </p>
-
-                <div style="text-align: center; margin: 20px 0;">
-                    <a href="${resetLink}" 
-                       style="background-color: #4CAF50; color: white; padding: 12px 24px; border-radius: 6px;">
-                        Reset Password
-                    </a>
-                </div>
-
-                <p>This link will expire in 15 minutes.</p>
-            </div>
-        </div>
-        `;
-
-        await resend.emails.send({
-            from: "onboarding@resend.dev", // dùng tạm domain của Resend
+        const info = await transporter.sendMail({
+            from: `"Task Manager" <${process.env.EMAIL_USER}>`,
             to,
-            subject: "Reset your password",
-            html
+            subject: '🔐 Reset your password',
+            html: `<a href="${resetLink}">Reset Password</a>`
         });
 
         console.log("✅ Message sent:", info.messageId);
         console.log("📬 Response:", info.response);
         console.log("📦 Accepted:", info.accepted);
         console.log("❌ Rejected:", info.rejected);
-        
+
     } catch (err) {
-        console.error("❌ Send mail error:", err);
+        console.error("❌ Send mail error FULL:", err);
     }
 };
 
