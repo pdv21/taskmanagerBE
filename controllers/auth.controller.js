@@ -56,7 +56,7 @@ const forgotPassword = async(req, res) => {
         await auth.saveResetToken(email, token, expire);
         
         const resetLink = `${process.env.FRONTEND_URL}/reset-password?:${token}`;
-        mailer.sendResetEmail(email, resetLink);
+        await mailer.sendResetEmail(email, resetLink);
         console.log(`Password reset link for ${email}: ${resetLink}`);
         res.status(200).json({ message: 'Password reset link has been sent to your email' });
 
