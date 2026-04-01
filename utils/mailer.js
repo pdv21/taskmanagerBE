@@ -4,6 +4,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendResetEmail = async (to, resetLink) => {
     try {
+        console.log("📨 Sending mail to:", to);
+        console.log("🔗 Reset link:", resetLink);
         const html = `
         <div style="font-family: Arial, sans-serif; background-color: #f4f6f8; padding: 20px;">
             <div style="max-width: 500px; margin: auto; background: #ffffff; border-radius: 10px; padding: 30px;">
@@ -33,8 +35,11 @@ const sendResetEmail = async (to, resetLink) => {
             html
         });
 
-        console.log("✅ Email sent to:", to);
-
+        console.log("✅ Message sent:", info.messageId);
+        console.log("📬 Response:", info.response);
+        console.log("📦 Accepted:", info.accepted);
+        console.log("❌ Rejected:", info.rejected);
+        
     } catch (err) {
         console.error("❌ Send mail error:", err);
     }
